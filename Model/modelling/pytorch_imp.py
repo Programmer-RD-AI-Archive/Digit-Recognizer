@@ -33,8 +33,8 @@ class CNN(Module):
         self.conv2batchnorm = BatchNorm2d(16)
         self.conv3 = Conv2d(16, 32, (3, 3))
         self.conv4batchnorm = BatchNorm2d(32)
-        self.conv5 = Conv2d(32, 64, (3, 3))
-        self.linear1 = Linear(64 * 3 * 3, 128)
+        self.conv5 = Conv2d(32, 64, (1, 1))
+        self.linear1 = Linear(64 * 1 * 1, 128)
         self.linear2batchnorm = BatchNorm1d(128)
         self.linear3 = Linear(128, 256)
         self.linear4batchnorm = Linear(256, 512)
@@ -48,8 +48,7 @@ class CNN(Module):
         preds = self.max_pool2d(self.activation(self.conv3(preds)))
         preds = self.max_pool2d(self.activation(self.conv4batchnorm(preds)))
         preds = self.conv5(preds)
-        print(preds.shape)
-        preds = preds.view(-1, 64 * 3 * 3)
+        preds = preds.view(-1, 64 * 1 * 1)
         preds = self.activation(self.linear1(preds))
         preds = self.activation(self.linear2batchnorm(preds))
         preds = self.activation(self.linear3(preds))
@@ -60,7 +59,12 @@ class CNN(Module):
 
 
 class TL_Model(Module):
-    def __init__(self, tl_model=resnet18(), output_of_tl_model: int = 512, idx_of_classes: int = 0):
+    def __init__(
+        self,
+        tl_model=resnet18(),
+        output_of_tl_model: int = 512,
+        idx_of_classes: int = 0,
+    ):
         super().__init__()
         self.tl_model = tl_model
         self.output = Linear(output_of_tl_model, idx_of_classes)
