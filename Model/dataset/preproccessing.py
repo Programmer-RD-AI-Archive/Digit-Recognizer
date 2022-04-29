@@ -51,14 +51,3 @@ class PreProccessing:
             pass
         img = img / 255.0
         return img
-
-
-# for _ in range(50):
-#     pp = PreProccessing()
-#     plt.figure(figsize=(10, 6))
-#     plt.imshow(pp.preproccess(np.array(cv2.imread("./tests/images.jpeg"))))
-#     plt.savefig("./test.png")
-#     plt.close()
-#     time.sleep(2.5)
-# print(np.array(cv2.imread("./tests/images.jpeg")).dtype)
-# print(type(cv2.imread("./tests/images.jpeg")))
