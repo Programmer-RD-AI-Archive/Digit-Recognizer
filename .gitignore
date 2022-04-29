@@ -128,3 +128,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 Model/dataset/raw/train.csv
+Model/dataset/data/y_train.pth
+Model/dataset/data/y_train.pt
+Model/dataset/data/y_test.pth
+Model/dataset/data/y_test.pt
+Model/dataset/data/X_train.pth
+Model/dataset/data/X_train.pt
+Model/dataset/data/X_test.pth
+Model/dataset/data/X_test.pt
