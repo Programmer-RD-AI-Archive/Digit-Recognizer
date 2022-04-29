@@ -1,13 +1,5 @@
 """sumary_line"""
-import pandas as pd
-import numpy as np
-from preproccessing import PreProccessing
-import torch
-import matplotlib.pyplot as plt
-import math
-from sklearn.model_selection import train_test_split
-from tqdm import tqdm
-
+from Model import *
 
 class DataSet:
     """sumary_line"""
