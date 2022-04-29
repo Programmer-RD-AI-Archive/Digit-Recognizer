@@ -9,12 +9,14 @@ from Model import *
 
 
 class Metrics:
-    def loss(self, model, X, y, criterion) -> float:
+    @staticmethod
+    def loss(model, X, y, criterion) -> float:
         preds = model(X)
         loss = criterion(preds, y)
         return loss.item()
 
-    def accuracy(self, model, X, y) -> float:
+    @staticmethod
+    def accuracy(model, X, y) -> float:
         correct = 0
         total = 0
         preds = model(X)
@@ -26,7 +28,8 @@ class Metrics:
             total += 1
         return round(correct / total, 3)
 
-    def test_images(self, model, labels_r, device):
+    @staticmethod
+    def test_images(model, labels_r, device):
         model.eval()
         with torch.no_grad():
             for file_path in os.listdir("./Model/tests/"):

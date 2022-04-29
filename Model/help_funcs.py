@@ -4,8 +4,8 @@ from Model.metrics import *
 
 
 class Help_Funcs:
+    @staticmethod
     def train(
-        self,
         PROJECT_NAME,
         name,
         epochs,
