@@ -20,6 +20,10 @@ class DataSet:
         self.raw_dir = raw_dir
         self.data = pd.read_csv(f"{raw_dir}{train_data_file_name}")
         self.data = self.data.sample(frac=1.0)
+        self.data = self.data.sample(frac=1.0)
+        self.data = self.data.sample(frac=1.0)
+        self.data = self.data.sample(frac=1.0)
+        self.data = self.data.sample(frac=1.0)
         self.test_data = pd.read_csv(f"{raw_dir}{test_data_file_name}")
         self.sample_submission = pd.read_csv(f"{raw_dir}{sample_submission}")
         self.preproccessing = preproccessing
@@ -82,7 +86,7 @@ class DataSet:
         return np_eye
 
     def X_and_y_to_X_train_y_train_X_test_y_test(
-        self, X: list, y: list, test_size: float = 0.25, shuffle: bool = True
+        self, X: list, y: list, test_size: float = 0.375, shuffle: bool = True
     ) -> tuple:
         """sumary_line"""
         X_train, X_test, y_train, y_test = train_test_split(
