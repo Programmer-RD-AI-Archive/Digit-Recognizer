@@ -1,7 +1,8 @@
 """sumary_line"""
+import os
+import cv2
 import pandas as pd
 import numpy as np
-from preproccessing import PreProccessing
 import torch
 import matplotlib.pyplot as plt
 import math
@@ -10,8 +11,6 @@ from tqdm import tqdm
 
 
 class DataSet:
-    """sumary_line"""
-
     def __init__(
         self,
         save_dir: str = "./data/",
@@ -19,20 +18,19 @@ class DataSet:
         train_data_file_name: str = "train.csv",
         test_data_file_name: str = "test.csv",
         sample_submission: str = "sample_submission.csv",
-        preproccessing: PreProccessing = PreProccessing(),
     ) -> None:
         """sumary_line"""
         self.save_dir = save_dir
         self.raw_dir = raw_dir
-        self.data = pd.read_csv(f"{raw_dir}{train_data_file_name}")
+        # self.data = pd.read_csv(os.path.join(self.raw_dir, train_data_file_name))
+        self.data = pd.read_csv(f"./raw/{train_data_file_name}")
         self.data = self.data.sample(frac=1.0)
-        self.test_data = pd.read_csv(f"{raw_dir}{test_data_file_name}")
-        self.sample_submission = pd.read_csv(f"{raw_dir}{sample_submission}")
-        self.preproccessing = preproccessing
+        self.test_data = pd.read_csv(os.path.join(self.raw_dir, test_data_file_name))
+        self.sample_submission = pd.read_csv(os.path.join(self.raw_dir, sample_submission))
 
     # Analytics
 
-    def analytics(self) -> tuple:
+    def analytics(self):
         """sumary_line"""
         chart_info = self.data["label"].value_counts().to_dict()
         classes = chart_info.keys()
@@ -48,23 +46,17 @@ class DataSet:
 
     # Load Data
 
-    def data_to_X_and_y(self) -> tuple:
+    def data_to_X_and_y(self):
         """sumary_line"""
         images = self.data.drop("label", axis=1)
         labels = self.data["label"]
-        img_size = int(math.sqrt(np.array(images.shape[1])))
-        images = np.array(images).reshape(-1, img_size, img_size)
+        # img_size = int(math.sqrt(np.array(images.shape[1])))
+        images = np.array(images).reshape(-1, 28, 28)
         labels = np.array(labels)
-        new_images = []
-        for img in tqdm(images):
-            img = self.preproccessing.preproccess(
-                np.array(img, dtype=np.uint8).reshape(img_size, img_size)
-            )
-            new_images.append(img)
-        images = np.array(new_images.copy())
+        images = np.array(images) / 255.0
         return images, labels, list(dict(self.data["label"].value_counts()).keys())
 
-    def get_labels(self, y) -> tuple:
+    def get_labels(self, y):
         """sumary_line"""
         idx = 0
         labels = {}
@@ -105,7 +97,7 @@ class DataSet:
         torch.save(y_test, self.save_dir + "y_test.pth")
         return (X_train, X_test, y_train, y_test)
 
-    def load_data(self, matrix_type_y: bool = True) -> tuple:
+    def load_data(self, matrix_type_y: bool = True):
         """sumary_line"""
         print("Loading Data")
         X, y, classes = self.data_to_X_and_y()
@@ -127,7 +119,6 @@ class DataSet:
         return X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test
 
 
-# Testing
-# ds = DataSet()
-# X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
-# print(len(X_train), len(X_test), len(y_train), len(y_test))
+ds = DataSet()
+X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
+print(len(X_train), len(X_test), len(y_train), len(y_test))

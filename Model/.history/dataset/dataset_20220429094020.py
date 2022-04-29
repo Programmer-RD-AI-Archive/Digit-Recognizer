@@ -10,8 +10,6 @@ from tqdm import tqdm
 
 
 class DataSet:
-    """sumary_line"""
-
     def __init__(
         self,
         save_dir: str = "./data/",
@@ -105,7 +103,7 @@ class DataSet:
         torch.save(y_test, self.save_dir + "y_test.pth")
         return (X_train, X_test, y_train, y_test)
 
-    def load_data(self, matrix_type_y: bool = True) -> tuple:
+    def load_data(self, matrix_type_y: bool = True):
         """sumary_line"""
         print("Loading Data")
         X, y, classes = self.data_to_X_and_y()
@@ -128,6 +126,6 @@ class DataSet:
 
 
 # Testing
-# ds = DataSet()
-# X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
-# print(len(X_train), len(X_test), len(y_train), len(y_test))
+ds = DataSet()
+X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
+print(len(X_train), len(X_test), len(y_train), len(y_test))

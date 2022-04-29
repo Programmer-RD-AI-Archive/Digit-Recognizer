@@ -128,6 +128,6 @@ class DataSet:
 
 
 # Testing
-# ds = DataSet()
-# X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
-# print(len(X_train), len(X_test), len(y_train), len(y_test))
+ds = DataSet()
+X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
+print(len(X_train), len(X_test), len(y_train), len(y_test))

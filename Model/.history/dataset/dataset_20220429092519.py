@@ -10,8 +10,6 @@ from tqdm import tqdm
 
 
 class DataSet:
-    """sumary_line"""
-
     def __init__(
         self,
         save_dir: str = "./data/",
@@ -32,7 +30,7 @@ class DataSet:
 
     # Analytics
 
-    def analytics(self) -> tuple:
+    def analytics(self):
         """sumary_line"""
         chart_info = self.data["label"].value_counts().to_dict()
         classes = chart_info.keys()
@@ -48,7 +46,7 @@ class DataSet:
 
     # Load Data
 
-    def data_to_X_and_y(self) -> tuple:
+    def data_to_X_and_y(self):
         """sumary_line"""
         images = self.data.drop("label", axis=1)
         labels = self.data["label"]
@@ -56,15 +54,13 @@ class DataSet:
         images = np.array(images).reshape(-1, img_size, img_size)
         labels = np.array(labels)
         new_images = []
-        for img in tqdm(images):
-            img = self.preproccessing.preproccess(
-                np.array(img, dtype=np.uint8).reshape(img_size, img_size)
-            )
+        for img in images:
+            img = self.preproccessing.preproccess(img)
             new_images.append(img)
         images = np.array(new_images.copy())
         return images, labels, list(dict(self.data["label"].value_counts()).keys())
 
-    def get_labels(self, y) -> tuple:
+    def get_labels(self, y):
         """sumary_line"""
         idx = 0
         labels = {}
@@ -105,7 +101,7 @@ class DataSet:
         torch.save(y_test, self.save_dir + "y_test.pth")
         return (X_train, X_test, y_train, y_test)
 
-    def load_data(self, matrix_type_y: bool = True) -> tuple:
+    def load_data(self, matrix_type_y: bool = True):
         """sumary_line"""
         print("Loading Data")
         X, y, classes = self.data_to_X_and_y()
@@ -128,6 +124,6 @@ class DataSet:
 
 
 # Testing
-# ds = DataSet()
-# X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
-# print(len(X_train), len(X_test), len(y_train), len(y_test))
+ds = DataSet()
+X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test = ds.load_data()
+print(len(X_train), len(X_test), len(y_train), len(y_test))
