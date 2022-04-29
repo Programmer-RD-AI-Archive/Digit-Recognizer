@@ -1,0 +1,26 @@
+{
+    "os": "Linux-5.13.0-40-generic-x86_64-with-glibc2.29",
+    "python": "3.8.10",
+    "heartbeatAt": "2022-04-29T08:13:50.454145",
+    "startedAt": "2022-04-29T08:13:46.731014",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "gpu_count": 1,
+    "cpu_count": 6,
+    "cuda": null,
+    "args": [
+        "-f",
+        "/home/indika/.local/share/jupyter/runtime/kernel-41482302-5613-4ced-98a9-7ef6cc3be8dc.json"
+    ],
+    "state": "running",
+    "program": "test.ipynb",
+    "root": "/media/indika/Sync/Programmer-RD-AI/Programming/Projects/Python/Artifical-Intelligence/PyTorch/CNN/Digit-Recognizer",
+    "git": {
+        "remote": "https://github.com/Programmer-RD-AI/Digit-Recognizer.git",
+        "commit": "e6a0ba587f37e0e07c47eb0f25f21791e04d892a"
+    },
+    "email": "go2ranuga@gmail.com",
+    "host": "programmer-rd-ai",
+    "username": "indika",
+    "executable": "/usr/bin/python3"
+}
