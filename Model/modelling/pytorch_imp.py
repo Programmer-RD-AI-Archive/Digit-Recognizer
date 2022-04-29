@@ -13,7 +13,7 @@ class CLF(Module):
         self.linear5 = Linear(1024, 512)
         self.output = Linear(512, idx_of_classes)
 
-    def forward(self, X) -> torch.tensor():
+    def forward(self, X):
         preds = self.activation(self.linear1(X))
         preds = self.activation(self.linear2(preds))
         preds = self.linear3batchnorm(preds)
@@ -41,7 +41,7 @@ class CNN(Module):
         self.linear5 = Linear(512, 256)
         self.output = Linear(256, idx_of_classes)
 
-    def forward(self, X) -> torch.tensor:
+    def forward(self, X):
         """sumary_line"""
         preds = self.max_pool2d(self.activation(self.conv1(X)))
         preds = self.max_pool2d(self.activation(self.conv2batchnorm(preds)))

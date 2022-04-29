@@ -1,13 +1,15 @@
 """sumary_line"""
 from Model import *
+from Model.dataset.preproccessing import *
+
 
 class DataSet:
     """sumary_line"""
 
     def __init__(
         self,
-        save_dir: str = "./data/",
-        raw_dir: str = "./raw/",
+        save_dir: str = "/media/indika/Sync/Programmer-RD-AI/Programming/Projects/Python/Artifical-Intelligence/PyTorch/CNN/Digit-Recognizer/Model/dataset/data/",
+        raw_dir: str = "/media/indika/Sync/Programmer-RD-AI/Programming/Projects/Python/Artifical-Intelligence/PyTorch/CNN/Digit-Recognizer/Model/dataset/raw/",
         train_data_file_name: str = "train.csv",
         test_data_file_name: str = "test.csv",
         sample_submission: str = "sample_submission.csv",
