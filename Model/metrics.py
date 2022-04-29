@@ -33,12 +33,10 @@ class Metrics:
         model.eval()
         with torch.no_grad():
             for file_path in os.listdir("./Model/tests/"):
-                img = cv2.imread(
-                    f"./Model/tests/{file_path}", cv2.COLOR_BGR2GRAY)
+                img = cv2.imread(f"./Model/tests/{file_path}", cv2.COLOR_BGR2GRAY)
                 img = cv2.resize(img, (28, 28))
                 img = img / 255.0
-                pred = model(torch.tensor(
-                    img).view(-1, 1, 28, 28).float().to(device))
+                pred = model(torch.tensor(img).view(-1, 1, 28, 28).float().to(device))
                 print("*" * 50)
                 print(file_path)
                 print(pred)
@@ -52,8 +50,6 @@ class Metrics:
                 plt.close()
             preds_files = []
             for file_path in os.listdir("./Model/preds/"):
-                preds_files.append(
-                    [file_path, cv2.imread(f"./Model/preds/{file_path}")]
-                )
+                preds_files.append([file_path, cv2.imread(f"./Model/preds/{file_path}")])
         model.train()
         return preds_files
