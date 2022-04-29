@@ -24,14 +24,13 @@ class Help_Funcs:
         wandb.init(
             project=PROJECT_NAME,
             name=name,
-            config={"device": device,
-                    "batch_size": batch_size, "epochs": epochs},
+            config={"device": device, "batch_size": batch_size, "epochs": epochs},
         )
         wandb.watch(model)
         for _ in tqdm(range(epochs)):
             for idx in range(0, len(X_train), batch_size):
-                X_batch = X_train[idx: idx + batch_size].float().to(device)
-                y_batch = y_train[idx: idx + batch_size].float().to(device)
+                X_batch = X_train[idx : idx + batch_size].float().to(device)
+                y_batch = y_train[idx : idx + batch_size].float().to(device)
                 preds = model(X_batch)
                 loss = criterion(preds, y_batch)
                 optimizer.zero_grad()
@@ -40,8 +39,13 @@ class Help_Funcs:
             model.eval()
             wandb.log(
                 {
-                    "Accuracy Batch": m.accuracy(model, X_batch, y_batch),
-                    "Loss Batch": loss.item(),
+                    "Accuracy Train": m.accuracy(model, X_train, y_train),
+                    "Loss Train": m.loss(
+                        model.to(device),
+                        X_train.to(device).float(),
+                        y_train.to(device).float(),
+                        criterion,
+                    ),
                     "Accuracy": m.accuracy(
                         model.to(device),
                         X_test.to(device).float(),
