@@ -137,3 +137,5 @@ Model/dataset/data/X_train.pt
 Model/dataset/data/X_test.pth
 Model/dataset/data/X_test.pt
 .history/
+wandb/run-20220429_150625-3d0bz3yx/files/wandb-summary.json
+wandb/run-20220429_150625-3d0bz3yx/run-3d0bz3yx.wandb
