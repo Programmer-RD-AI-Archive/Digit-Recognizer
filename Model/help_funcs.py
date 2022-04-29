@@ -56,9 +56,6 @@ class Help_Funcs:
                 }
             )
             model.train()
-        # preds_imgs = m.test_images(model, labels_r, device)
-        # for pred_img in preds_imgs:
-        #     wandb.log({pred_img[0]: wandb.Image(pred_img[1])})
         wandb.watch(model)
         wandb.finish()
         return (
