@@ -1,0 +1,87 @@
+diff --git a/Model/dataset/preproccessing.py b/Model/dataset/preproccessing.py
+index bb33140..4b31994 100644
+--- a/Model/dataset/preproccessing.py
++++ b/Model/dataset/preproccessing.py
+@@ -4,11 +4,11 @@ from Model import *
+ class PreProccessing:
+     def __init__(
+         self,
+-        random_vertical_flip: bool = True,
+-        color_jitter: bool = True,
+-        random_grayscale: bool = True,
+-        random_horizontal_flip: bool = True,
+-        random_rotation: bool = True,
++        random_vertical_flip: bool = False,
++        color_jitter: bool = False,
++        random_grayscale: bool = False,
++        random_horizontal_flip: bool = False,
++        random_rotation: bool = False,
+     ) -> None:
+         self.color_jitter = color_jitter
+         self.random_grayscale = random_grayscale
+@@ -43,8 +43,11 @@ class PreProccessing:
+             self.random_rotation_pp()
+         if self.random_vertical_flip:
+             self.random_vertical_flip_pp()
+-        transformation = Compose(self.compose_list)
+-        img = np.array(transformation(Image.fromarray(img)))
++        try:
++            transformation = Compose(self.compose_list)
++            img = np.array(transformation(Image.fromarray(img)))
++        except:
++            pass
+         img = img / 255.0
+         return img
+ 
+diff --git a/Model/help_funcs.py b/Model/help_funcs.py
+index 0ea06fa..81476f0 100644
+--- a/Model/help_funcs.py
++++ b/Model/help_funcs.py
+@@ -5,6 +5,7 @@ from Model.metrics import *
+ 
+ class Help_Funcs:
+     def train(
++        self,
+         PROJECT_NAME,
+         name,
+         epochs,
+@@ -19,7 +20,12 @@ class Help_Funcs:
+         optimizer,
+     ):
+         m = Metrics()
+-        wandb.init(project=PROJECT_NAME, name=name)
++        wandb.init(
++            project=PROJECT_NAME,
++            name=name,
++            config={"device": device, "batch_size": batch_size, "epochs": epochs},
++        )
++        wandb.watch(model)
+         for _ in tqdm(range(epochs)):
+             for idx in range(0, len(X_train), batch_size):
+                 X_batch = X_train[idx : idx + batch_size].to(device)
+@@ -37,6 +43,7 @@ class Help_Funcs:
+                     "Loss": m.loss(model, X_test, y_test, criterion),
+                 }
+             )
++        wandb.watch(model)
+         wandb.finish()
+         return (
+             PROJECT_NAME,
+diff --git a/run.py b/run.py
+index 3a0b31c..967350f 100644
+--- a/run.py
++++ b/run.py
+@@ -8,11 +8,12 @@ print("Loaded Data")
+ print("Creating Model")
+ model = CNN().to(DEVICE)
+ criterion = MSELoss()
+-optimizer = Adam(model.parameter(), lr=0.001)
++optimizer = Adam(model.parameters(), lr=0.001)
+ print("Created Model")
+ print("Training Model")
+ hp = Help_Funcs()
+ hp.train(
++    PROJECT_NAME,
+     "BaseLine",
+     EPOCHS,
+     X_train,
