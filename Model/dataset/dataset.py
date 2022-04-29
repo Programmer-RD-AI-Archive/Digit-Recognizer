@@ -58,7 +58,8 @@ class DataSet:
         images = np.array(new_images.copy())
         return images, labels, list(dict(self.data["label"].value_counts()).keys())
 
-    def get_labels(self, y) -> tuple:
+    @staticmethod
+    def get_labels(y) -> tuple:
         """sumary_line"""
         idx = 0
         labels = {}
