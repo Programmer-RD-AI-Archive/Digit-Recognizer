@@ -2,30 +2,13 @@
 from Model import *
 
 
-class CLF(Module):
-    def __init__(self, img_size: int = 1 * 28 * 28, idx_of_classes: int = 0) -> None:
-        super().__init__()
-        self.activation = ReLU()
-        self.linear1 = Linear(img_size, 256)
-        self.linear2 = Linear(256, 512)
-        self.linear3batchnorm = BatchNorm1d(512)
-        self.linear4 = Linear(512, 1024)
-        self.linear5 = Linear(1024, 512)
-        self.output = Linear(512, idx_of_classes)
-
-    def forward(self, X) -> torch.tensor():
-        preds = self.activation(self.linear1(X))
-        preds = self.activation(self.linear2(preds))
-        preds = self.linear3batchnorm(preds)
-        preds = self.activation(self.linear4(preds))
-        preds = self.activation(self.linear5(preds))
-        preds = self.output(preds)
-        return preds
+class CLF:
+    pass
 
 
 class CNN(Module):
     def __init__(self, activation=ReLU(), idx_of_classes: int = 0) -> None:
-        """sumary_line"""
+        
         super().__init__()
         self.max_pool2d = MaxPool2d((2, 2))
         self.activation = activation
@@ -42,7 +25,6 @@ class CNN(Module):
         self.output = Linear(256, idx_of_classes)
 
     def forward(self, X) -> torch.tensor:
-        """sumary_line"""
         preds = self.max_pool2d(self.activation(self.conv1(X)))
         preds = self.max_pool2d(self.activation(self.conv2batchnorm(preds)))
         preds = self.max_pool2d(self.activation(self.conv3(preds)))
@@ -59,13 +41,5 @@ class CNN(Module):
         return preds
 
 
-class TL_Model(Module):
-    def __init__(self, tl_model=resnet18(), output_of_tl_model: int = 512, idx_of_classes: int = 0):
-        super().__init__()
-        self.tl_model = tl_model
-        self.output = Linear(output_of_tl_model, idx_of_classes)
-
-    def forward(self, X):
-        preds = self.tl_model(X)
-        preds = self.output(preds)
-        return preds
+class TL_Model:
+    pass

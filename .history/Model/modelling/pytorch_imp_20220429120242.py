@@ -68,4 +68,3 @@ class TL_Model(Module):
     def forward(self, X):
         preds = self.tl_model(X)
         preds = self.output(preds)
-        return preds

@@ -3,7 +3,7 @@ from Model import *
 
 
 class CLF(Module):
-    def __init__(self, img_size: int = 1 * 28 * 28, idx_of_classes: int = 0) -> None:
+    def __init__(self, img_size: int = 1 * 28 * 28, idx_of_classes: int = 0):
         super().__init__()
         self.activation = ReLU()
         self.linear1 = Linear(img_size, 256)
@@ -13,7 +13,7 @@ class CLF(Module):
         self.linear5 = Linear(1024, 512)
         self.output = Linear(512, idx_of_classes)
 
-    def forward(self, X) -> torch.tensor():
+    def forward(self, X):
         preds = self.activation(self.linear1(X))
         preds = self.activation(self.linear2(preds))
         preds = self.linear3batchnorm(preds)
@@ -59,13 +59,5 @@ class CNN(Module):
         return preds
 
 
-class TL_Model(Module):
-    def __init__(self, tl_model=resnet18(), output_of_tl_model: int = 512, idx_of_classes: int = 0):
-        super().__init__()
-        self.tl_model = tl_model
-        self.output = Linear(output_of_tl_model, idx_of_classes)
-
-    def forward(self, X):
-        preds = self.tl_model(X)
-        preds = self.output(preds)
-        return preds
+class TL_Model:
+    pass

@@ -63,9 +63,4 @@ class TL_Model(Module):
     def __init__(self, tl_model=resnet18(), output_of_tl_model: int = 512, idx_of_classes: int = 0):
         super().__init__()
         self.tl_model = tl_model
-        self.output = Linear(output_of_tl_model, idx_of_classes)
-
-    def forward(self, X):
-        preds = self.tl_model(X)
-        preds = self.output(preds)
-        return preds
+        self.output = Linear()
