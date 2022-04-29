@@ -10,6 +10,8 @@ import torch
 import math
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
+from torch.nn import *
+from torch.optim import *
 
 SAVE_DIR = "./dataset/data/"
 RAW_DIR = "./dataset/raw/"
