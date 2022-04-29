@@ -19,8 +19,8 @@ from torchvision.models import *
 
 SAVE_DIR = "./dataset/data/"
 RAW_DIR = "./dataset/raw/"
-TEST_SIZE = 0.25
-EPOCHS = 100
+TEST_SIZE = 0.375
+EPOCHS = 1
 BATCH_SIZE = 32
 DEVICE = "cuda"
 PROJECT_NAME = "Digit-Recognizer-Competition"

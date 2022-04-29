@@ -4,11 +4,11 @@ from Model import *
 class PreProccessing:
     def __init__(
         self,
-        random_vertical_flip: bool = True,
-        color_jitter: bool = True,
-        random_grayscale: bool = True,
-        random_horizontal_flip: bool = True,
-        random_rotation: bool = True,
+        random_vertical_flip: bool = False,
+        color_jitter: bool = False,
+        random_grayscale: bool = False,
+        random_horizontal_flip: bool = False,
+        random_rotation: bool = False,
     ) -> None:
         self.color_jitter = color_jitter
         self.random_grayscale = random_grayscale
@@ -43,8 +43,11 @@ class PreProccessing:
             self.random_rotation_pp()
         if self.random_vertical_flip:
             self.random_vertical_flip_pp()
-        transformation = Compose(self.compose_list)
-        img = np.array(transformation(Image.fromarray(img)))
+        try:
+            transformation = Compose(self.compose_list)
+            img = np.array(transformation(Image.fromarray(img)))
+        except:
+            pass
         img = img / 255.0
         return img
 
