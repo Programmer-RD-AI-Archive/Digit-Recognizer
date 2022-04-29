@@ -51,5 +51,3 @@ class PreProccessing:
             pass
         img = img / 255.0
         return img
-
-

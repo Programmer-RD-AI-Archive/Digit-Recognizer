@@ -70,7 +70,9 @@ class DataSet:
         return labels, idx, labels_r
 
     @staticmethod
-    def create_np_eye_list_with_label(idx: int, class_name: any, labels: dict) -> np.array:
+    def create_np_eye_list_with_label(
+        idx: int, class_name: any, labels: dict
+    ) -> np.array:
         """sumary_line"""
         current_idx = labels[class_name]
         max_idx = idx
@@ -110,14 +112,16 @@ class DataSet:
         new_y = []
         for y_iter in y:
             if matrix_type_y:
-                new_y.append(self.create_np_eye_list_with_label(idx, y_iter, labels))
+                new_y.append(self.create_np_eye_list_with_label(
+                    idx, y_iter, labels))
             else:
                 new_y.append(labels[y_iter])
         y = np.array(new_y)
         print("Converting Data -> X,y + train,test")
-        X_train, X_test, y_train, y_test = self.X_and_y_to_X_train_y_train_X_test_y_test(
-            list(X), list(y)
-        )
+        (
+            X_train,
+            X_test,
+            y_train,
+            y_test,
+        ) = self.X_and_y_to_X_train_y_train_X_test_y_test(list(X), list(y))
         return X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test
-
-
