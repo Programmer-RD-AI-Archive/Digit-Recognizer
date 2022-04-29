@@ -22,8 +22,8 @@ class Help_Funcs:
         wandb.init(project=PROJECT_NAME, name=name)
         for _ in tqdm(range(epochs)):
             for idx in range(0, len(X_train), batch_size):
-                X_batch = X_train[idx : idx + batch_size].to(device)
-                y_batch = y_train[idx : idx + batch_size].to(device)
+                X_batch = X_train[idx: idx + batch_size].to(device)
+                y_batch = y_train[idx: idx + batch_size].to(device)
                 preds = model(X_batch)
                 loss = criterion(preds)
                 optimizer.step()
