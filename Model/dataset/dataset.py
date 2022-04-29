@@ -1,17 +1,18 @@
 """sumary_line"""
 from Model import *
 
+
 class DataSet:
     """sumary_line"""
 
     def __init__(
-        self,
-        save_dir: str = "./data/",
-        raw_dir: str = "./raw/",
-        train_data_file_name: str = "train.csv",
-        test_data_file_name: str = "test.csv",
-        sample_submission: str = "sample_submission.csv",
-        preproccessing: PreProccessing = PreProccessing(),
+            self,
+            save_dir: str = "./data/",
+            raw_dir: str = "./raw/",
+            train_data_file_name: str = "train.csv",
+            test_data_file_name: str = "test.csv",
+            sample_submission: str = "sample_submission.csv",
+            preproccessing: PreProccessing = PreProccessing(),
     ) -> None:
         """sumary_line"""
         self.save_dir = save_dir
@@ -50,11 +51,11 @@ class DataSet:
         new_images = []
         for img in tqdm(images):
             img = self.preproccessing.preproccess(
-                np.array(img, dtype=np.uint8).reshape(img_size, img_size)
-            )
+                np.array(img, dtype=np.uint8).reshape(img_size, img_size))
             new_images.append(img)
         images = np.array(new_images.copy())
-        return images, labels, list(dict(self.data["label"].value_counts()).keys())
+        return images, labels, list(
+            dict(self.data["label"].value_counts()).keys())
 
     def get_labels(self, y) -> tuple:
         """sumary_line"""
@@ -68,7 +69,8 @@ class DataSet:
         return labels, idx, labels_r
 
     @staticmethod
-    def create_np_eye_list_with_label(idx: int, class_name: any, labels: dict) -> np.array:
+    def create_np_eye_list_with_label(idx: int, class_name: any,
+                                      labels: dict) -> np.array:
         """sumary_line"""
         current_idx = labels[class_name]
         max_idx = idx
@@ -76,13 +78,15 @@ class DataSet:
         np_eye = np_eye[-1]
         return np_eye
 
-    def X_and_y_to_X_train_y_train_X_test_y_test(
-        self, X: list, y: list, test_size: float = 0.25, shuffle: bool = True
-    ) -> tuple:
+    def X_and_y_to_X_train_y_train_X_test_y_test(self,
+                                                 X: list,
+                                                 y: list,
+                                                 test_size: float = 0.25,
+                                                 shuffle: bool = True
+                                                 ) -> tuple:
         """sumary_line"""
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, shuffle=shuffle
-        )
+            X, y, test_size=test_size, shuffle=shuffle)
         X_train = torch.from_numpy(np.array(X_train))
         y_train = torch.from_numpy(np.array(y_train))
         X_test = torch.from_numpy(np.array(X_test))
@@ -108,14 +112,18 @@ class DataSet:
         new_y = []
         for y_iter in y:
             if matrix_type_y:
-                new_y.append(self.create_np_eye_list_with_label(idx, y_iter, labels))
+                new_y.append(
+                    self.create_np_eye_list_with_label(idx, y_iter, labels))
             else:
                 new_y.append(labels[y_iter])
         y = np.array(new_y)
         print("Converting Data -> X,y + train,test")
-        X_train, X_test, y_train, y_test = self.X_and_y_to_X_train_y_train_X_test_y_test(
-            list(X), list(y)
-        )
+        (
+            X_train,
+            X_test,
+            y_train,
+            y_test,
+        ) = self.X_and_y_to_X_train_y_train_X_test_y_test(list(X), list(y))
         return X, y, classes, labels, idx, labels_r, X_train, y_train, X_test, y_test
 
 

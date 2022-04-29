@@ -1,7 +1,9 @@
 from Model import *
 
+
 # Transformations
 class PreProccessing:
+
     def __init__(
         self,
         random_vertical_flip: bool = True,
