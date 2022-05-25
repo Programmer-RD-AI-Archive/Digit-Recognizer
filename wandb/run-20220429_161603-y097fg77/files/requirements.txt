@@ -79,7 +79,7 @@ defusedxml==0.7.1
 deprecated==1.2.13
 dill==0.3.4
 discord.py==2.0.0a3795+g89009759
-distlib==0.3.3
+distlib==0.3.4
 distro-info==1.0
 distro==1.6.0
 dlib==19.22.1
