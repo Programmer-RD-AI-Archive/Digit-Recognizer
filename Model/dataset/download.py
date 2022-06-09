@@ -23,9 +23,9 @@ class Download:
             plt.imshow(y_iter.view(self.height, self.width, self.color_type), cmap="Greys")
             plt.savefig(f"./Model/dataset/data/Img/{idx}.png")
         n_data = pd.DataFrame(n_data)
-        n_data.to_csv(f"./Model/dataset/data/data.csv", index=False)
+        n_data.to_csv("./Model/dataset/data/data.csv", index=False)
         n_data.to_json(
-            f"./Model/dataset/data/data.json",
+            "./Model/dataset/data/data.json",
         )
 
     def save(self):
