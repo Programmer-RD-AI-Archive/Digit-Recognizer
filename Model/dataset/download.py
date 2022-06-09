@@ -2,10 +2,19 @@ from Model import *
 
 
 class Download:
-    def __init__(self, test_size=0.125, shuffle=True, X_col="label", norm=255.0,g_path:str='./Model/dataset') -> None:
+
+    def __init__(
+        self,
+        test_size=0.125,
+        shuffle=True,
+        X_col="label",
+        norm=255.0,
+        g_path: str = "./Model/dataset",
+    ) -> None:
         self.data = pd.read_csv(f"{g_path}/raw/train.csv")
         self.test = pd.read_csv(f"{g_path}/raw/test.csv")
-        self.sample_submission = pd.read_csv(f"{g_path}/raw/sample_submission.csv")
+        self.sample_submission = pd.read_csv(
+            f"{g_path}/raw/sample_submission.csv")
         self.test_size = test_size
         self.shuffle = shuffle
         self.X_col = X_col
@@ -20,13 +29,12 @@ class Download:
             idx += 1
             n_data["Label"] = int(self.X[iter_idx])
             n_data["Img Path"] = f"{idx}.png"
-            plt.imshow(y_iter.view(self.height, self.width, self.color_type), cmap="Greys")
+            plt.imshow(y_iter.view(self.height, self.width, self.color_type),
+                       cmap="Greys")
             plt.savefig(f"./Model/dataset/data/Img/{idx}.png")
         n_data = pd.DataFrame(n_data)
         n_data.to_csv(f"./Model/dataset/data/data.csv", index=False)
-        n_data.to_json(
-            f"./Model/dataset/data/data.json",
-        )
+        n_data.to_json(f"./Model/dataset/data/data.json", )
 
     def save(self):
         torch.save(self.X, "./Model/dataset/data/X.pt")
@@ -50,10 +58,10 @@ class Download:
         self.y = self.y.view(-1, self.color_type, self.height, self.width)
         self.y = self.y / self.norm
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.X, self.y, test_size=self.test_size, shuffle=self.shuffle
-        )
+            self.X, self.y, test_size=self.test_size, shuffle=self.shuffle)
         self.save()
-        return (self.X, self.y, self.X_train, self.X_test, self.y_train, self.y_test)
+        return (self.X, self.y, self.X_train, self.X_test, self.y_train,
+                self.y_test)
 
     def test(self, model, img: torch.tensor, name: str) -> (np.array):
         preds = model(img)
