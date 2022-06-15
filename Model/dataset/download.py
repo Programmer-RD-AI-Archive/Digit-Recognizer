@@ -19,9 +19,10 @@ class Download:
         self.shuffle = shuffle
         self.X_col = X_col
         self.norm = norm
+        self.g_path = g_path
 
     def save_data_in_format(self) -> None:
-        if "Img" not in os.listdir(f"{g_path}/data/"):
+        if "Img" not in os.listdir(f"{self.g_path}/data/"):
             os.makedirs("./Model/dataset/data/Img")
         n_data = {"Label": [], "Img Path": []}
         idx = 0
