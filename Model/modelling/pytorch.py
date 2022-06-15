@@ -2,6 +2,7 @@ from Model import *
 
 
 class Clf(Module):
+
     def __init__(self, classes: list):
         self.activation = ReLU()
         self.linear1 = Linear(28 * 28, 128)
