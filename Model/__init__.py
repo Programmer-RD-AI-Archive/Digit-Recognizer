@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 from torch.nn import *
 from torch.optim import *
 from torchvision.models import *
